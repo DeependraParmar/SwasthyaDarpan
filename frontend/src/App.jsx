@@ -7,6 +7,7 @@ import Footer from "./Pages/Layout/Footer";
 const Home = lazy(() => import('./Pages/Home/Home'));
 const Contact = lazy(() => import('./Pages/Contact/Contact'));
 const Public = lazy(() => import('./Pages/Reports/Public'));
+const NotFound = lazy(() => import('./Components/NotFound'));
 
 function App() {
 
@@ -19,6 +20,8 @@ function App() {
             <Route path="/" element={<Home />} />
             <Route path="/contact" element={<Contact />} />
             <Route path="/public/:name/:heartrate/:spo2/:glucose/:temperature" element={<Public />}  />
+
+            <Route path="*" element={<NotFound />} />
           </Routes>
           <Footer />
         </Suspense>
