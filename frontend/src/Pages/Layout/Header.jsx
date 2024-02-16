@@ -39,7 +39,7 @@ const NavLogo = React.memo(({ logo }) => {
     return <Link to={'/'}>
         <Box display={['flex']} alignItems={'center'} gap={2} justifyContent={'center'} >
             <Image width={'10'} src={logo} dropShadow={'0px 0px 10px #f9c307'} />
-            <Button variant={'unstyled'} colorScheme='teal' fontSize={['xs', 'xs', 'md', 'md']} fontWeight={'bold'} >Swaasthya Darpan</Button>
+            <Button variant={'unstyled'} display={['none','none','block','block']} colorScheme='teal' fontSize={['xs', 'xs', 'md', 'md']} fontWeight={'bold'} >Swaasthya Darpan</Button>
         </Box>
     </Link>
 });
@@ -112,8 +112,8 @@ const NavProfile = React.memo(({ isAuthenticated }) => {
             <ModalOverlay />
             <ModalContent>
                 <ModalHeader>
-                    <Text color={'teal.600'}>Join <span style={{ fontFamily: "Young Serif", color: "goldenrod" }}>Coursify</span> to Explore</Text>
-                    <Text fontSize={'xs'} fontWeight={'normal'}>Learn What Matters with rich collection of courses.</Text>
+                    <Text color={'teal'}>Welcome to Swaasthya Darpan</Text>
+                    <Text fontSize={'xs'} fontWeight={'normal'}></Text>
                 </ModalHeader>
                 <ModalCloseButton />
                 <ModalBody>
