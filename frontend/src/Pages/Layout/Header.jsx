@@ -1,22 +1,20 @@
-import { Avatar, AvatarGroup, Box, Button, Drawer, DrawerBody, DrawerContent, DrawerHeader, DrawerOverlay, HStack, Image, Input, InputGroup, InputLeftElement, InputRightElement, Menu, MenuButton, MenuDivider, MenuGroup, MenuItem, MenuList, Modal, ModalBody, ModalCloseButton, ModalContent, ModalHeader, ModalOverlay, Stack, Tab, TabIndicator, TabList, TabPanel, TabPanels, Tabs, Text, useDisclosure } from '@chakra-ui/react';
-import React, { useEffect, useState } from 'react';
-import { AiFillGithub, AiOutlineEdit, AiOutlineIdcard, AiOutlineLock, AiOutlineMail, AiOutlineQuestionCircle, AiOutlineSearch, AiOutlineUser } from 'react-icons/ai';
-import { BiDownArrow, BiHide, BiLogIn, BiLogOut, BiShowAlt } from 'react-icons/bi';
-import { BsBodyText, BsBook, BsDoorOpen, BsPhone } from 'react-icons/bs';
+import { Box, Button, Drawer, DrawerBody, DrawerContent, DrawerHeader, DrawerOverlay, HStack, Image, Input, InputGroup, InputLeftElement, InputRightElement, Menu, MenuButton, MenuDivider, MenuGroup, MenuItem, MenuList, Modal, ModalBody, ModalCloseButton, ModalContent, ModalHeader, ModalOverlay, Stack, Tab, TabIndicator, TabList, TabPanel, TabPanels, Tabs, Text, useDisclosure } from '@chakra-ui/react';
+import React, { useState } from 'react';
+import { AiOutlineIdcard, AiOutlineMail, AiOutlineUser } from 'react-icons/ai';
+import { BiHide, BiLogIn, BiLogOut, BiShowAlt } from 'react-icons/bi';
+import { BsDoorOpen } from 'react-icons/bs';
 import { CiPhone } from 'react-icons/ci';
-import { FaChalkboardTeacher, FaFacebook, FaQuestionCircle } from 'react-icons/fa';
-import { FcGoogle } from 'react-icons/fc';
+import { FaAngleDown } from 'react-icons/fa';
 import { GrClose } from "react-icons/gr";
 import { IoIosInformationCircleOutline, } from 'react-icons/io';
-import { IoBookOutline, IoChevronDownCircleOutline, IoHomeOutline } from "react-icons/io5";
+import { IoHomeOutline } from "react-icons/io5";
 import { MdOutlineLockReset, MdOutlinePassword } from 'react-icons/md';
-import { PiUsersThree } from 'react-icons/pi';
 import { RiLockPasswordLine, RiMenuFill } from 'react-icons/ri';
 import { Link } from 'react-router-dom';
+import { ColorModeSwitcher } from '../../ColorModeSwitcher';
 import logo from "../../assets/images/logo.png";
 import { headerLinks } from '../../data';
 import "../../styles/App.scss";
-import { ColorModeSwitcher } from '../../ColorModeSwitcher';
 
 const Header = () => {
     const isAuthenticated = false;
@@ -32,14 +30,14 @@ const Header = () => {
 }
 
 function NavButtonComponent({ name, route, className }) {
-    return <Link className='width-full' style={{fontSize: "0.9rem"}} to={route}>{name}</Link>
+    return <Link className='width-full' style={{ fontSize: "0.9rem" }} to={route}>{name}</Link>
 }
 
 const NavLogo = React.memo(({ logo }) => {
     return <Link to={'/'}>
         <Box display={['flex']} alignItems={'center'} gap={2} justifyContent={'center'} >
             <Image width={'10'} src={logo} dropShadow={'0px 0px 10px #f9c307'} />
-            <Button variant={'unstyled'} display={['none','none','block','block']} colorScheme='teal' fontSize={['xs', 'xs', 'md', 'md']} fontWeight={'bold'} >Swaasthya Darpan</Button>
+            <Button variant={'unstyled'} display={['none', 'none', 'block', 'block']} colorScheme='teal' fontSize={['xs', 'xs', 'md', 'md']} fontWeight={'bold'} >Swaasthya Darpan</Button>
         </Box>
     </Link>
 });
@@ -90,7 +88,7 @@ const NavProfile = React.memo(({ isAuthenticated }) => {
                 :
                 <>
                     <Menu>
-                        <MenuButton display={['none', 'none', 'block', 'block']} fontSize={'sm'} as={Button} rightIcon={<BiDownArrow />}>
+                        <MenuButton display={['none', 'none', 'block', 'block']} fontSize={'sm'} as={Button} rightIcon={<FaAngleDown />}>
                             Menu
                         </MenuButton>
                         <MenuList>
@@ -260,7 +258,6 @@ const NavProfile = React.memo(({ isAuthenticated }) => {
 
                 <DrawerBody >
                     <Menu >
-                        <MenuDivider />
                         <MenuGroup>
                             <MenuItem fontSize={'sm'} onClick={onDrawerClose} _hover={{ bg: "teal", color: 'white' }} gap={'2'}><IoHomeOutline /><Link className='width-full' to={'/'}> Home</Link></MenuItem>
                             <MenuItem fontSize={'sm'} onClick={onDrawerClose} _hover={{ bg: "teal", color: "white" }} gap={'2'}><IoIosInformationCircleOutline /><Link className='width-full' to={'/about'}>About</Link></MenuItem>
