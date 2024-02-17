@@ -82,7 +82,7 @@ const Authorised = () => {
                                 </tr>
                                 <tr>
                                     <th>SPO2</th>
-                                    <td><b>{lastItem.spo2}</b> %</td>
+                                    <td><b>{lastItem.spO2}</b> %</td>
                                 </tr>
                                 <tr>
                                     <th>Glucose</th>
