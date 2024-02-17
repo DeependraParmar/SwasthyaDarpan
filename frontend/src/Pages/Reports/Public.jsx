@@ -7,7 +7,7 @@ const Public = () => {
     const {name, heartrate, spo2, glucose, temperature} = useParams();
 
   return (
-    <MainWrapper pt={[12,12,20,20]} pb={12}>
+    <MainWrapper pt={[24,24,20,20]} pb={12}>
         <VStack gap={8}>
             <Heading>Your Health Report</Heading>
             <Avatar background={'teal'} size={'2xl'} name={name} />

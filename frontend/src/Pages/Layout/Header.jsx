@@ -150,7 +150,7 @@ const NavProfile = React.memo(({ isAuthenticated }) => {
                         </MenuList>
                     </Menu>
                     <ColorModeSwitcher />
-                    <Button display={['none', 'none', 'block', 'block']} onClick={onLoginOpen} variant={'solid'} colorScheme={'teal'} color={'white'} fontSize={['xs', 'xs', 'sm', 'sm']} size={['sm', 'sm', 'md', 'md']} gap={2}><HStack><BiLogIn /><Text>Login</Text></HStack></Button>
+                    <Button display={['none', 'none', 'block', 'block']} onClick={onLoginOpen} variant={'solid'} colorScheme={'teal'} color={'white'} fontSize={['xs', 'xs', 'sm', 'sm']} size={['sm', 'sm', 'md', 'md']} gap={2}><HStack><BiLogIn /><Text>{t('22')}</Text></HStack></Button>
                     <Button display={['block', 'block', 'none', 'none']} onClick={onDrawerOpen} colorScheme='teal' variant={'solid'}><RiMenuFill /></Button>
                 </>
         }
