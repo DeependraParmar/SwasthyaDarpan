@@ -20,9 +20,9 @@ app.use(express.json());
 const port = 5000;
 
 // Routes
-app.use("/auth/", authRoutes)
-app.use("/node/", nodeRoutes)
-app.use("/api/", apiRoutes)
+app.use("/auth", authRoutes)
+app.use("/node", nodeRoutes)
+app.use("/api", apiRoutes)
 
 // default route
 app.get("/", (req, res) => {

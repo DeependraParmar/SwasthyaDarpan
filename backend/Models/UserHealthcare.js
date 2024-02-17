@@ -1,5 +1,7 @@
 //connect to mongodb
 const mongoose = require("mongoose")
+const bcrypt = require("bcrypt");
+const jwt = require("jsonwebtoken");
 
 //database url with  /databaseName
 const url = "mongodb://127.0.0.1:27017/database";
@@ -13,10 +15,9 @@ try {
 }
 
 // Create a schema for the healthcare app
-const userHealthcareSchema = new mongoose.Schema({
+const schema = new mongoose.Schema({
     userid: {
         type: String,
-        required: true,
         unique: true
     },
     name: {
@@ -32,6 +33,10 @@ const userHealthcareSchema = new mongoose.Schema({
         required: true
     },
     email: {
+        type: String,
+        required: true
+    },
+    password: {
         type: String,
         required: true
     },
@@ -79,17 +84,9 @@ const userHealthcareSchema = new mongoose.Schema({
 }, { timestamps: true });
 
 // Create a model from the schema
-const UserHealthcare = mongoose.model('UserHealthcare', userHealthcareSchema);
 
-schema.pre("save", async function (next) {
-    if (!this.isModified("password")) return next();
-    const hashedPassword = await bcrypt.hash(this.password, 10);
-    this.password = hashedPassword;
-    next();
-})
-
-schema.methods.getJWTToken = function () {
-    return jwt.sign({ _id: this._id }, process.env.JWT_SECRET, {
+schema.methods.getJWTToken = function() {
+    return jwt.sign({ _id: this._id }, "tiuieruqijkvmsa.df;atruakjflkj", {
         expiresIn: "15d",
     }, {
         algorithm: 'HS256'
@@ -97,4 +94,5 @@ schema.methods.getJWTToken = function () {
 }
 
 // Export the model
+const UserHealthcare = mongoose.model('UserHealthcare', schema);
 module.exports = UserHealthcare;
