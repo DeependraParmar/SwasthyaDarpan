@@ -38,7 +38,7 @@ function App() {
               background: '#333',
               color: '#fff',
             },
-            position: 'bottom-right',
+            position: 'top-right',
           }
         } />
       </Router>

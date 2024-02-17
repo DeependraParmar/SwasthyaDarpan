@@ -18,6 +18,8 @@ import { headerLinks } from '../../data';
 import "../../styles/App.scss";
 import { PiIdentificationCardThin } from 'react-icons/pi';
 import {FaUserDoctor} from 'react-icons/fa6';
+import i18n from '../../i18n';
+import { useTranslation } from 'react-i18next';
 
 const Header = () => {
     const isAuthenticated = false;
@@ -37,10 +39,11 @@ function NavButtonComponent({ name, route, className }) {
 }
 
 const NavLogo = React.memo(({ logo }) => {
+    const {t} = useTranslation();
     return <Link to={'/'}>
         <Box display={['flex']} alignItems={'center'} gap={2} justifyContent={'center'} >
             <Image width={'10'} src={logo} dropShadow={'0px 0px 10px #f9c307'} />
-            <Button variant={'unstyled'} display={['none', 'none', 'block', 'block']} colorScheme='teal' fontSize={['xs', 'xs', 'md', 'md']} fontWeight={'bold'} >Swaasthya Darpan</Button>
+            <Button variant={'unstyled'} display={['none', 'none', 'block', 'block']} colorScheme='teal' fontSize={['xs', 'xs', 'md', 'md']} fontWeight={'bold'} >{t('1')}</Button>
         </Box>
     </Link>
 });
@@ -96,13 +99,18 @@ const NavProfile = React.memo(({ isAuthenticated }) => {
         console.log(name, age, phone, email, aadhar, password, isDiabetic, isHypertension, isHypotension, doctorName, doctorPhone, familyName, familyPhone);
     }
 
+    const changeLanguage = (language) => {
+        i18n.changeLanguage(language);
+    }
+    const {t} = useTranslation();
+
     return <Box display={'flex'} gap={'2'}>
         {
             isAuthenticated ?
                 <>
                     <Menu>
                         <MenuButton as={Button} rightIcon={<FaAngleDown />}>
-                            Menu
+                            {t('21')}
                         </MenuButton>
                         <MenuList>
                             {
@@ -121,7 +129,7 @@ const NavProfile = React.memo(({ isAuthenticated }) => {
                 <>
                     <Menu>
                         <MenuButton display={['none', 'none', 'block', 'block']} fontSize={'sm'} as={Button} rightIcon={<FaAngleDown />}>
-                            Menu
+                            {t('21')}
                         </MenuButton>
                         <MenuList>
                             {
@@ -130,6 +138,15 @@ const NavProfile = React.memo(({ isAuthenticated }) => {
                                         <NavButtonComponent key={index} name={link.name} route={link.route} /></MenuItem>
                                 })
                             }
+                        </MenuList>
+                    </Menu>
+                    <Menu>
+                        <MenuButton display={['none', 'none', 'block', 'block']} fontSize={'sm'} as={Button} rightIcon={<FaAngleDown />}>
+                            {t('30')}
+                        </MenuButton>
+                        <MenuList>
+                                <MenuItem onClick={() => changeLanguage('en')}>English</MenuItem>
+                            <MenuItem onClick={() => changeLanguage('hi')}>हिंदी</MenuItem>
                         </MenuList>
                     </Menu>
                     <ColorModeSwitcher />
