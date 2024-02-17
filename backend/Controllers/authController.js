@@ -33,6 +33,27 @@ const handleRegisterUser = async(req,res,next) => {
     sendToken(res, user, "User Registered Successfully", 201);
 }
 
+const login = async(req,res,next) => {
+    const { email, password } = req.body;
+
+    if (!email || !password) {
+        return next(new ErrorHandler("All Fields are Required", 400));
+    }
+
+    const user = await UserHealthcare.findOne({ email }).select("+password");
+
+    if (!user) {
+        return next(new ErrorHandler("User Doesn't Exist. Please Register First", 401));
+    }
+
+    const isMatched = password === user.password;
+
+    if (!isMatched)
+        return next(new ErrorHandler("Incorrect Email or Password", 401));
+
+
+    sendToken(res, user, `Welcome back, ${user.name}`, 200);
+}
 
 const logout = async(req,res,next) => {
         res.clearCookie("connect.sid");
@@ -41,4 +62,4 @@ const logout = async(req,res,next) => {
             message: "Logged out successfully",
         })
 }
-module.exports = { handleRegisterUser, logout }
+module.exports = { handleRegisterUser, logout, login }
