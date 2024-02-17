@@ -7,14 +7,16 @@ const {
     //any function exported from controller
     handleIndex,
     handleGetPredictions,
-    handleGetUserData
+    handleGetUserData,
+    handleSendSMS
 } = require("../Controllers/apiController");
 
 
 //routing to specific controller functions
 router.get("/", handleIndex) 
 router.get("/getpredictions", handleGetPredictions)  
-router.get("/getUserData", handleGetUserData)  
+router.post("/getUserData", handleGetUserData) 
+router.post("/sendSMS", handleSendSMS) 
 
 //exporting router
 module.exports = router;

@@ -3,7 +3,6 @@ const express = require('express');
 const axios = require('axios');
 const cors = require('cors');
 const moment = require('moment');
-const { Vonage } = require('@vonage/server-sdk')
 
 // routes
 const authRoutes = require('./Routes/authRoutes');
@@ -19,13 +18,6 @@ app.use(express.json());
 
 // variables
 const port = 5000;
-const vonage = new Vonage({
-    apiKey: "dc32a1c8",
-    apiSecret: "xXGM7eZLqFDNqB07"
-  });
-
-const date = moment().format('YYYY-MM-DD');
-const time = moment().format('HH:mm:ss');
 
 // Routes
 app.use("/auth/", authRoutes)

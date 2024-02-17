@@ -14,8 +14,8 @@ const {
 
 //routing to specific controller functions
 router.get("/", handleIndex)         
-router.get("/getuserdata", handleGetUserData)
-router.get("/usertransaction", handleUserTransaction)
+//router.post("/getuserdata", handleGetUserData)
+router.post("/usertransaction", handleUserTransaction)
 router.get("/callAmbulance", handleCallAmbulance)
 
 //exporting router

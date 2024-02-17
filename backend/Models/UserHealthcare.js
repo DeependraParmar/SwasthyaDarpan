@@ -12,8 +12,6 @@ try {
     console.log("database connection failed");
 }
 
-const mongoose = require("mongoose");
-
 // Create a schema for the healthcare app
 const userHealthcareSchema = new mongoose.Schema({
     userid: {
@@ -91,7 +89,7 @@ const userHealthcareSchema = new mongoose.Schema({
     },
     healthData: [
         {
-            created_at: Date.now(),
+            created_at: { type: Date, default: Date.now },
             heartRate: Number,
             spO2: Number,
             glucose: Number,

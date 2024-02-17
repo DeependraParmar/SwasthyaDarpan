@@ -5,12 +5,14 @@ const router = express.Router();
 //importing controller functions for handling
 const {
     //any function exported from controller
-    handleIndex
+    handleIndex,
+    handleRegisterUser,
 } = require("../Controllers/authController");
 
 
 //routing to specific controller functions
-router.get("/", handleIndex)         
+router.get("/", handleIndex)    
+router.post("/registernewuser", handleRegisterUser)     
 
 //exporting router
 module.exports = router;
