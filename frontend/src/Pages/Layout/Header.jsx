@@ -17,9 +17,12 @@ import logo from "../../assets/images/logo.png";
 import { headerLinks } from '../../data';
 import "../../styles/App.scss";
 import { PiIdentificationCardThin } from 'react-icons/pi';
-import {FaUserDoctor} from 'react-icons/fa6';
+import { FaUserDoctor } from 'react-icons/fa6';
 import i18n from '../../i18n';
 import { useTranslation } from 'react-i18next';
+import { toast } from 'react-hot-toast';
+import axios from 'axios';
+
 
 const Header = () => {
     const isAuthenticated = false;
@@ -39,7 +42,7 @@ function NavButtonComponent({ name, route, className }) {
 }
 
 const NavLogo = React.memo(({ logo }) => {
-    const {t} = useTranslation();
+    const { t } = useTranslation();
     return <Link to={'/'}>
         <Box display={['flex']} alignItems={'center'} gap={2} justifyContent={'center'} >
             <Image width={'10'} src={logo} dropShadow={'0px 0px 10px #f9c307'} />
@@ -50,19 +53,19 @@ const NavLogo = React.memo(({ logo }) => {
 
 const NavProfile = React.memo(({ isAuthenticated }) => {
     const { isOpen: isLoginOpen, onOpen: onLoginOpen, onClose: onLoginClose } = useDisclosure();
-    const {isOpen: isStep2Open, onOpen: onStep2Open, onClose: onStep2Close} = useDisclosure();
-    const {isOpen: isStep3Open, onOpen: onStep3Open, onClose: onStep3Close} = useDisclosure();
+    const { isOpen: isStep2Open, onOpen: onStep2Open, onClose: onStep2Close } = useDisclosure();
+    const { isOpen: isStep3Open, onOpen: onStep3Open, onClose: onStep3Close } = useDisclosure();
     const { isOpen: isDrawerOpen, onOpen: onDrawerOpen, onClose: onDrawerClose } = useDisclosure();
 
     const [name, setName] = useState('');
     const [age, setAge] = useState('');
     const [phone, setPhone] = useState('');
     const [email, setEmail] = useState('');
-    const [aadhar, setAadhar] = useState('');
+    const [aadharNumber, setAadhar] = useState('');
     const [password, setPassword] = useState('');
     const [isDiabetic, setIsDiabetic] = useState();
-    const [isHypertension, setIsHypertension] = useState();
-    const [isHypotension, setIsHypotension] = useState();
+    const [isHypertensive, setIsHypertension] = useState();
+    const [isHypotensive, setIsHypotension] = useState();
     const [doctorName, setDoctorName] = useState('');
     const [doctorPhone, setDoctorPhone] = useState('');
     const [familyName, setFamilyName] = useState('');
@@ -80,7 +83,7 @@ const NavProfile = React.memo(({ isAuthenticated }) => {
     const handleStep3 = () => {
         onStep2Close();
         onStep3Open();
-    }    
+    }
     const handleLoginClick = () => {
         onDrawerClose();
         onLoginOpen();
@@ -93,16 +96,36 @@ const NavProfile = React.memo(({ isAuthenticated }) => {
         onStep3Close();
         onStep2Open();
     }
-    const submitHandler = () => {
-        onStep3Close();
-        onLoginClose();
-        console.log(name, age, phone, email, aadhar, password, isDiabetic, isHypertension, isHypotension, doctorName, doctorPhone, familyName, familyPhone);
+    const submitHandler = async () => {
+        try{
+
+            const {data} = await axios.post('http://localhost:5000/auth/register',JSON.stringify({
+                name, age: Number(age), phoneNumber: Number(phone), email, aadharNumber: Number(aadharNumber), password, isDiabetic: Boolean(isDiabetic), isHypertensive: Boolean(isHypertensive), isHypotensive: Boolean(isHypotensive), doctorName, doctorNumber: Number(doctorPhone), familyName, familyNumber: Number(familyPhone)
+            }), {
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+            });
+            console.log(data);
+
+
+            if(data.success){
+                toast.success(data.message);
+            }
+            onStep3Close();
+            onLoginClose();
+        }
+        catch(error){
+            toast.error('Error registering user');
+            onStep3Close();
+            onLoginClose();
+        }
     }
 
     const changeLanguage = (language) => {
         i18n.changeLanguage(language);
     }
-    const {t} = useTranslation();
+    const { t } = useTranslation();
 
     return <Box display={'flex'} gap={'2'}>
         {
@@ -145,7 +168,7 @@ const NavProfile = React.memo(({ isAuthenticated }) => {
                             {t('30')}
                         </MenuButton>
                         <MenuList>
-                                <MenuItem onClick={() => changeLanguage('en')}>English</MenuItem>
+                            <MenuItem onClick={() => changeLanguage('en')}>English</MenuItem>
                             <MenuItem onClick={() => changeLanguage('hi')}>हिंदी</MenuItem>
                         </MenuList>
                     </Menu>
@@ -194,7 +217,7 @@ const NavProfile = React.memo(({ isAuthenticated }) => {
                                             <InputLeftElement pointerEvents='none'>
                                                 <GoNumber color='gray.300' />
                                             </InputLeftElement>
-                                            <Input value={age} onChange={e => setAge(e.target.value)}  required={true} type='number' placeholder='Age' focusBorderColor='teal'
+                                            <Input value={age} onChange={e => setAge(e.target.value)} required={true} type='number' placeholder='Age' focusBorderColor='teal'
                                                 fontSize={'sm'} />
                                         </InputGroup>
 
@@ -218,7 +241,7 @@ const NavProfile = React.memo(({ isAuthenticated }) => {
                                             <InputLeftElement pointerEvents='none'>
                                                 <PiIdentificationCardThin color='gray.300' />
                                             </InputLeftElement>
-                                            <Input value={aadhar} onChange={e => setAadhar(e.target.value)} required={true} type='number' placeholder='Aadhar Number' focusBorderColor='teal'
+                                            <Input value={aadharNumber} onChange={e => setAadhar(e.target.value)} required={true} type='number' placeholder='Aadhar Number' focusBorderColor='teal'
                                                 fontSize={'sm'} />
                                         </InputGroup>
 
@@ -233,7 +256,7 @@ const NavProfile = React.memo(({ isAuthenticated }) => {
                                                 focusBorderColor='teal'
                                                 fontSize={'sm'}
                                                 required={true}
-                                                value={password} onChange={e => setPassword(e.target.value)} 
+                                                value={password} onChange={e => setPassword(e.target.value)}
                                             />
                                             <InputRightElement>
                                                 <Button display={'flex'} variant={'unstyled'} size='sm' onClick={handleClick}>
@@ -255,7 +278,7 @@ const NavProfile = React.memo(({ isAuthenticated }) => {
                                             <InputLeftElement pointerEvents='none'>
                                                 <AiOutlineMail />
                                             </InputLeftElement>
-                                            <Input value={email} onChange={e => setEmail(e.target.value)} required={true}  type='email' placeholder='Email' focusBorderColor='teal'
+                                            <Input value={email} onChange={e => setEmail(e.target.value)} required={true} type='email' placeholder='Email' focusBorderColor='teal'
                                                 fontSize={'sm'} />
                                         </InputGroup>
 
@@ -320,11 +343,11 @@ const NavProfile = React.memo(({ isAuthenticated }) => {
                                             <option value="true">Yes</option>
                                             <option value="false">No</option>
                                         </Select>
-                                        <Select value={isHypertension} onChange={e => setIsHypertension(e.target.value)} focusBorderColor='teal' placeholder={`Are you a hypertension patient`} size={'sm'} fontSize={'xs'}>
+                                        <Select value={isHypertensive} onChange={e => setIsHypertension(e.target.value)} focusBorderColor='teal' placeholder={`Are you a hypertension patient`} size={'sm'} fontSize={'xs'}>
                                             <option value="true">Yes</option>
                                             <option value="false">No</option>
                                         </Select>
-                                        <Select value={isHypotension} onChange={e => setIsHypotension(e.target.value)} focusBorderColor='teal' placeholder={`Are you a hypotension patient`} size={'sm'} fontSize={'xs'}>
+                                        <Select value={isHypotensive} onChange={e => setIsHypotension(e.target.value)} focusBorderColor='teal' placeholder={`Are you a hypotension patient`} size={'sm'} fontSize={'xs'}>
                                             <option value="true">Yes</option>
                                             <option value="false">No</option>
                                         </Select>
