@@ -33,7 +33,7 @@ html {
 }
 
 ::-webkit-scrollbar-thumb {
-    background: #805AD5;
+    background: teal;
     border-radius: 10px;
 }
 
@@ -49,5 +49,23 @@ html {
 .hover-underline {
     &:hover {
         text-decoration: underline;
+    }
+}
+
+table{
+    border-collapse: collapse;
+    border-spacing: 0;
+    width: 100%;
+
+    >tr{
+        border-bottom: 1px solid #c8c8c8;
+        
+        >th{
+            padding: 15px 0;
+            text-align: left;
+        }
+        >td{
+            text-align: right;
+        }
     }
 }

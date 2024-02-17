@@ -55,36 +55,16 @@ const userHealthcareSchema = new mongoose.Schema({
         type: String,
         required: true
     },
-    doctor_address: {
-        type: String,
-        required: true
-    },
     doctor_number: {
         type: Number,
         required: true
     },
-    family1_name: {
+    family_name: {
         type: String,
         required: true
     },
-    family1_number: {
+    family_number: {
         type: Number,
-        required: true
-    },
-    family1_relation: {
-        type: String,
-        required: true
-    },
-    family2_name: {
-        type: String,
-        required: true
-    },
-    family2_number: {
-        type: Number,
-        required: true
-    },
-    family2_relation: {
-        type: String,
         required: true
     },
     healthData: [
