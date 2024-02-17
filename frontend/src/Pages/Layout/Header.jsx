@@ -66,8 +66,6 @@ const NavProfile = React.memo(({ isAuthenticated }) => {
     const [familyPhone, setFamilyPhone] = useState('');
 
 
-
-
     const [show, setShow] = useState(false)
 
     const handleClick = () => setShow(!show);
@@ -103,7 +101,7 @@ const NavProfile = React.memo(({ isAuthenticated }) => {
             isAuthenticated ?
                 <>
                     <Menu>
-                        <MenuButton as={Button} rightIcon={<ChevronDownIcon />}>
+                        <MenuButton as={Button} rightIcon={<FaAngleDown />}>
                             Menu
                         </MenuButton>
                         <MenuList>
