@@ -33,4 +33,12 @@ const handleRegisterUser = async(req,res,next) => {
     sendToken(res, user, "User Registered Successfully", 201);
 }
 
-module.exports = { handleRegisterUser }
+
+const logout = async(req,res,next) => {
+        res.clearCookie("connect.sid");
+        res.status(200).json({
+            success: true,
+            message: "Logged out successfully",
+        })
+}
+module.exports = { handleRegisterUser, logout }
